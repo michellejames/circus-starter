@@ -1,71 +1,117 @@
 <!doctype html>
-<html>
+<html lang="en">
 
-<head>
-	<meta charset="utf-8">
-	<meta http-equiv="x-ua-compatible" content="ie=edge">
-	<title> ¯\_(ツ)_/¯ </title>
-	<meta name="description" content="">
-	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="x-ua-compatible" content="ie=edge">
+		<title>Accessibility Demo - WebDev4</title>
+		<meta name="description" content="A demo to showcase basic usage of accessibility features">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<script src="https://kit.fontawesome.com/e2e902bb46.js" crossorigin="anonymous"></script>
+		<link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400&display=swap" rel="stylesheet">
+		<link rel="stylesheet" href="dist/css/main.css">
+	</head>
 
-	<link rel="stylesheet" href="dist/css/main.css">
+	<body>
+		<header>
+			<a href="#main" class="skip-to-content-link">Skip to content</a>
+			<div id="logo">
+				<a href="#"><img src="./src/img/switch_logo.png" alt="Nintendo Switch Logo"></a>
+			</div>
+			<nav>
+				<ul>
+					<li><a href="#">Features</a></li>
+					<li><a href="#">Online Service</a></li>
+					<li><a href="#">Family Fun</a></li>
+				</ul>
+			</nav>
+			<div class="profile">
+				<a href="#" aria-label="Inbox">
+					<i class="far fa-envelope"></i>
+				</a>
+				<a href="#" aria-label="Shopping Cart">
+					<i class="fas fa-shopping-cart"></i>
+				</a>
+				<a href="#" aria-label="User Profile">
+					<i class="fas fa-user"></i>
+				</a>
+			</div>
+		</header>
 
-	<!--
-			Do I work in src or dist? Good question.
+		<main id="main">
+			<section class="intro">
+				<div class="img__container--intro">
+					<img src="./src/img/joycon.png" alt="Image of four Nintendo Joy-Cons in the new charging station">
+					<div class="img__container--intro-bg-gray1"></div>
+					<div class="img__container--intro-bg-red"></div>
+					<div class="img__container--intro-bg-gray2"></div>
+				</div>
+				<strong id="heading">
+					<h1>This is Joy-Con</h1>
+					<span>TM</span> 
+				</strong>
+				<p aria-hidden="true">One controller or two, vertical or sideways, motion controls or buttons...Joy-Con and Nintendo Switch give you total gameplay flexibilty.</p>
+			</section>
+			<section class="promo">
+				<div class="img__container--promo">
+					<img src="./src/img/joycon.png" alt="Image of four Nintendo Joy-Cons in the new charging station">
+				</div>
+				<h2>Joy-Con</h2>
+			</section>
+			<section class="preorder">
+				<legend>Preorder your Joy-Con now!</legend>
+				<form>
+					<fieldset id="formfields">
+					  <p class="preorder__input">
+						<label for="firstname">First Name</label>
+						<input type="text" name="formfield" id="firstname" placeholder="First Name" required aria-required="true">
+					  </p>
+					  <p class="preorder__input">
+						<label for="lastname">Last Name</label>
+						<input type="text" name="formfield" id="lastname" placeholder="Last Name" required aria-required="true">
+					  </p>
+					  <p class="preorder__input">
+						<label for="email">E-Mail</label>
+						<input type="email" name="formfield" id="email" placeholder="E-Mail" required aria-required="true">
+					  </p>
+					</fieldset>
 
-			First of all, if you're a newbie and you don't want to worry about any of this
-			Prepros or Gulp stuff, or scss, or browser-syncing, just do everything in dist.
-			In fact, just delete the src folder.
+					<fieldset id="radio">
+						<h2>What is your prefered color?</h2>
+						<p class="preorder__radio">
+							<input type="radio" name="controller" id="black" checked aria-checked="true" required aria-required="true">
+							<label for="black">Black</label>
+						</p>
+						<p class="preorder__radio">
+							<input type="radio" name="controller" id="blue" required aria-required="true">
+							<label for="blue">Blue</label>
+						</p>
+						<p class="preorder__radio">
+							<input type="radio" name="controller" id="red" required aria-required="true">
+							<label for="red">Red</label>
+						</p>
+					  </fieldset>
 
-			If you're a geek and want to get into it, here's some background...
+					  <!-- <div class="offers">
+						<div class="checkbox checked" aria-label="Receive promotional offer" aria-checked="true" role="checkbox">
+							<div class="square"></div>
+							<p>Receive promotional offers</p>
+						</div>
+						<div class="checkbox checked" aria-label="Receive promotional offer" aria-checked="false" role="checkbox">
+							<div class="square"></div>
+							<p>Receive promotional offers</p>
+						</div>
+						<div class="checkbox checked" aria-label="Receive promotional offer" aria-checked="false" role="checkbox">
+							<div class="square"></div>
+							<p>Receive promotional offers</p>
+						</div>
+					</div> -->
 
-			Prepros and Gulp do mostly the same things. Prepros is a GUI (it's pretty),
-			Gulp is a CLI (it's in the terminal, and it's ugly).
-
-			Both will watch your files, and where appropriate, they will error-check and
-			compile them from one format to another. To stay organized, we have to
-			split things up between the files we write: the *source* files in "src";
-			and the files they become: the files that get *distributed* on the web, in "dist".
-
-			So src/scss files become dist/css files,
-			And src/js files become dist/js files (that have been compiled down to ES5),
-			And src/img files become dist/img files (that have been compressed for you).
-
-			Anything that doesn't need compiling/compressing/error-checking (plugins, video, fonts, etc),
-			just put straight in *dist*.
-
-			One way to remember it is: you're only going to distribute *dist*. You keep the source files
-			to yourself, hidden from the world.
-
-			Go here to learn more about src and dist:
-				https://stackoverflow.com/questions/23730882/what-is-the-role-of-src-and-dist-folders
-			Or here for detailed instructions on setting up the gulp command line helper.
-				https://github.com/CreativeCircus/circus-starter
-
-			- Chris Silich
-		-->
-
-</head>
-
-<body>
-
-	<div class="floating-box">
-		<img class="logo" src="dist/img/logo.png" alt="Circus Logo">
-		<div class="foreground">
-			<h1>Hello World!</h1>
-			<p>Yep, you've got the Circus Starter project working.</p>
-			<p>Congratulations! You're ready to code.</p>
-			<p class="github">
-				<a target="_blank" rel="noopener"
-					href="https://github.com/CreativeCircus/circus-starter">https://github.com/CreativeCircus/circus-starter</a>
-			</p>
-			<code>1.8.0</code>
-		</div>
-		<div class="background"></div>
-	</div>
-
-	<script src="dist/js/main.js"></script>
-
-</body>
-
+					<button type="submit">Pre-Order</button>
+				  </form>
+			</section>
+		</main>
+		<footer></footer>
+		<script src="dist/js/main.js"></script>
+	</body>
 </html>
